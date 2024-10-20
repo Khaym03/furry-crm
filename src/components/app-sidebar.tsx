@@ -2,14 +2,12 @@
 
 import * as React from 'react'
 import {
-  
   Command,
   Frame,
   LifeBuoy,
   Map,
   PieChart,
   Send,
- 
   SquareTerminal
 } from 'lucide-react'
 
@@ -25,6 +23,7 @@ import {
   SidebarMenuItem
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
+import { ModeToggle } from './mode-toggle'
 
 const data = {
   user: {
@@ -115,6 +114,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+
+        <div className='flex justify-center items-center w-full mt-auto'>
+          <ModeToggle />
+        </div>
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
