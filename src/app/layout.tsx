@@ -11,6 +11,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { Separator } from '@/components/ui/separator'
 import DynamicBreadcrumb from '@/components/dynamic-breadcrumb'
 import { ThemeProvider } from '@/components/theme-provider'
+// import { dark } from '@clerk/themes'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -34,9 +35,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-  console.log(clerkKey)
+  
   return (
-    <ClerkProvider publishableKey={clerkKey}>
+    <ClerkProvider
+      // appearance={{
+      //   baseTheme: dark
+      // }}
+      publishableKey={clerkKey}
+    >
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
