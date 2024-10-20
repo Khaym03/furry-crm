@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { useEffect, useState } from 'react'
+import { useData } from '@/hooks/csv-data'
 
 export default function Page() {
   const { data } = useData()
@@ -34,24 +34,4 @@ export default function Page() {
   )
 }
 
-type CSVData =  {
-    name: string
-    phone: string
-    pets: unknown[]
-}
 
-function useData() {
-  const [data, setData] = useState<CSVData[]>([])
-
-  useEffect(() => {
-    const handler = async () => {
-      const res = await fetch('http://127.0.0.1:8080/data')
-      const d = await res.json()
-      setData(d ?? [])
-    }
-
-    handler()
-  }, [])
-
-  return { data }
-}
