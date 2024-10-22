@@ -2,8 +2,8 @@
 import {
   Box,
   PawPrint,
-  Stethoscope,
-  Syringe,
+  // Stethoscope,
+  // Syringe,
   UserIcon,
   LucideIcon
 } from 'lucide-react'
@@ -35,20 +35,20 @@ const options: RecordOption[] = [
     icon: PawPrint,
     href: '/record/pet'
   },
-  {
-    title: 'Registrar Vacuna',
-    description:
-      'Documenta la administración de vacunas a mascotas, asegurando su salud y bienestar.',
-    icon: Syringe,
-    href: '/record/vaccine' // Ruta corregida
-  },
-  {
-    title: 'Registrar Alergias',
-    description:
-      'Introduce información sobre alergias conocidas de mascotas para un mejor cuidado y tratamiento.',
-    icon: Stethoscope,
-    href: '/record/allergies' // Corrección tipográfica en la ruta
-  },
+  // {
+  //   title: 'Registrar Vacuna',
+  //   description:
+  //     'Documenta la administración de vacunas a mascotas, asegurando su salud y bienestar.',
+  //   icon: Syringe,
+  //   href: '/record/vaccine' // Ruta corregida
+  // },
+  // {
+  //   title: 'Registrar Alergias',
+  //   description:
+  //     'Introduce información sobre alergias conocidas de mascotas para un mejor cuidado y tratamiento.',
+  //   icon: Stethoscope,
+  //   href: '/record/allergies' // Corrección tipográfica en la ruta
+  // },
   {
     title: 'Registrar Servicio',
     description:
@@ -66,7 +66,7 @@ export default function ListOfRecordOptions() {
 
 
   return (
-    <ScrollArea className="h-[650px] px-4">
+    <ScrollArea className="h-[87vh] px-4">
       <div
         className="grid auto-rows-min gap-4 pb-2"
       >

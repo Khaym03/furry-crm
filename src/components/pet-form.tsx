@@ -30,13 +30,23 @@ import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { useRecordContext } from '@/app/record/context.record'
 import { useRouter } from 'next/navigation'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
-  type: z.string(),
-  race: z.string(),
-  owner: z.string(),
-  gender: z.string().max(1)
+  name: z
+    .string({ required_error: 'El nombre es obligatorio' })
+    .min(2, { message: 'El nombre debe tener al menos 2 caracteres' })
+    .max(50, { message: 'El nombre no puede tener más de 50 caracteres' }),
+  type: z.string({ required_error: 'El tipo es obligatorio' }),
+  race: z.string({ required_error: 'La raza es obligatorio' }),
+  owner: z.string({ required_error: 'El dueño es obligatorio' }),
+  gender: z.string({ required_error: 'El sexo es obligatorio' }).max(1)
 })
 
 const PET_TYPES = [
@@ -94,56 +104,23 @@ export default function PetForm() {
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Tipo de Mascota</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn(
-                          'w-[200px] justify-between',
-                          !field.value && 'text-muted-foreground'
-                        )}
-                      >
-                        {field.value
-                          ? PET_TYPES.find(
-                              petType => petType.value === field.value
-                            )?.label
-                          : 'Seleccione un tipo'}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search language..." />
-                      <CommandList>
-                        <CommandEmpty>No language found.</CommandEmpty>
-                        <CommandGroup>
-                          {PET_TYPES.map(p => (
-                            <CommandItem
-                              value={p.label}
-                              key={p.value}
-                              onSelect={() => {
-                                form.setValue('type', p.value)
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  'mr-2 h-4 w-4',
-                                  p.value === field.value
-                                    ? 'opacity-100'
-                                    : 'opacity-0'
-                                )}
-                              />
-                              {p.label}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccione un tipo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {PET_TYPES.map(petType => (
+                      <SelectItem key={petType.value} value={petType.value}>
+                        {petType.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormDescription>
                   Con el typo de mascota podras seleccionar la RAZA.
                 </FormDescription>
@@ -166,20 +143,19 @@ export default function PetForm() {
                         variant="outline"
                         role="combobox"
                         className={cn(
-                          'w-[200px] justify-between',
+                          'justify-between',
                           !field.value && 'text-muted-foreground'
                         )}
                       >
                         {field.value
-                          ? RACES.find(
-                              race => race.value === field.value
-                            )?.label
+                          ? RACES.find(race => race.value === field.value)
+                              ?.label
                           : 'Seleccione una raza'}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
+                  <PopoverContent className="p-0">
                     <Command>
                       <CommandInput placeholder="Buscar raza..." />
                       <CommandList>
@@ -231,24 +207,25 @@ export default function PetForm() {
                         variant="outline"
                         role="combobox"
                         className={cn(
-                          'w-[200px] justify-between',
+                          'justify-between',
                           !field.value && 'text-muted-foreground'
                         )}
                       >
                         {field.value
-                          ? LIST_OF_CUSTOMERS.find(
-                              c => c.value === field.value
-                            )?.label
+                          ? LIST_OF_CUSTOMERS.find(c => c.value === field.value)
+                              ?.label
                           : 'Selecciona un cliente'}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
+                  <PopoverContent className="p-0">
                     <Command>
                       <CommandInput placeholder="Buscar raza..." />
                       <CommandList>
-                        <CommandEmpty>No se encontro un resultado.</CommandEmpty>
+                        <CommandEmpty>
+                          No se encontro un resultado.
+                        </CommandEmpty>
                         <CommandGroup>
                           {LIST_OF_CUSTOMERS.map(p => (
                             <CommandItem
@@ -283,7 +260,6 @@ export default function PetForm() {
           />
         </div>
 
-       
         <div className="flex justify-end gap-2">
           <Button
             onClick={() => {

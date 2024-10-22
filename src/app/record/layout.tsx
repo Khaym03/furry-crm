@@ -9,7 +9,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <RecordProvider>
       <div className="grid gap-6 grid-cols-[1fr,3fr] h-full rounded-xl container">
-        <ListOfRecordOptions />
+        <div className="flex flex-col h-full">
+          <ListOfRecordOptions />
+        </div>
 
         <div className="flex flex-col justify-center items-center bg-muted/50 rounded-xl">
           {children}
