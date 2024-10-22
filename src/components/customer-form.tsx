@@ -14,9 +14,8 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import Link from 'next/link'
-
-
+import { useRecordContext } from '@/app/record/context.record'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -29,6 +28,9 @@ export default function CustomerForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)
   })
+
+  const { setSelectedRoute } = useRecordContext()
+  const router = useRouter()
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -107,8 +109,15 @@ export default function CustomerForm() {
           )}
         />
         <div className="flex justify-end gap-2">
-          <Button asChild variant={'secondary'} type="button">
-            <Link href={"/record"} >Cancelar</Link>
+          <Button
+            onClick={() => {
+              setSelectedRoute('/record')
+              router.push('/record')
+            }}
+            variant={'secondary'}
+            type="button"
+          >
+            cancelar
           </Button>
           <Button type="submit">Registrar</Button>
         </div>
