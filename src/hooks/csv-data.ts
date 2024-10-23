@@ -4,6 +4,7 @@ type CSVData = {
   name: string
   phone: string
   pets: unknown[]
+  rowIndexs: number[]
 }
 
 const url =

@@ -1,6 +1,7 @@
 'use client'
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle
@@ -27,6 +28,11 @@ export default function Page() {
                 <CardTitle>{d.name}</CardTitle>
                 <CardDescription>{d.phone}</CardDescription>
               </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  <span>Frecuencia absoluta: {d.rowIndexs.length}</span>
+                </CardDescription>
+              </CardContent>
             </Card>
           ))}
       </div>
